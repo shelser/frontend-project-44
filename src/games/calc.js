@@ -6,6 +6,20 @@ const getRandomSymbol = () => {
   const randomIndex = Math.floor(Math.random() * (arrSymbol.length - 1));
   return arrSymbol[randomIndex];
 };
+
+const getCalculate = (a, b, operator) => {
+  if (operator === '+') {
+    return a + b;
+  }
+  if (operator === '-') {
+    return a - b;
+  }
+  if (operator === '*') {
+    return a * b;
+  }
+  return NaN;
+};
+
 const task = 'What is the result of the expression?';
 
 const getGameResults = () => {
@@ -15,16 +29,7 @@ const getGameResults = () => {
     const secondNumber = getRandomNumber(1, 10);
     const symbol = getRandomSymbol();
     const question = `Question: ${firstNumber} ${symbol} ${secondNumber}`;
-    let trueAnswer;
-    if (symbol === '+') {
-      trueAnswer = firstNumber + secondNumber;
-    }
-    if (symbol === '-') {
-      trueAnswer = firstNumber - secondNumber;
-    }
-    if (symbol === '*') {
-      trueAnswer = firstNumber * secondNumber;
-    }
+    const trueAnswer = getCalculate(firstNumber, secondNumber, symbol);
     gameResults.push([question, String(trueAnswer)]);
   }
   return gameResults;
