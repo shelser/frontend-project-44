@@ -16,13 +16,9 @@ const isPrime = (num) => {
 const task = 'Answer "yes" if given number is prime. Otherwise answer "no".';
 
 const getGameResults = () => {
-  const gameResults = [];
-  for (let i = 0; i < 3; i += 1) {
-    const num = getRandomNumber(1, 50);
-    const question = `Question: ${num}`;
-    const trueAnswer = isPrime(num) ? 'yes' : 'no';
-    gameResults.push([question, trueAnswer]);
-  }
-  return gameResults;
+  const num = getRandomNumber(1, 50);
+  const question = `Question: ${num}`;
+  const trueAnswer = isPrime(num) ? 'yes' : 'no';
+  return [question, trueAnswer];
 };
-export default () => gameStart(task, getGameResults());
+export default () => gameStart(task, getGameResults);

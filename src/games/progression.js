@@ -1,14 +1,10 @@
 import getRandomNumber from '../getRandomNumber.js';
 import gameStart from '../index.js';
 
-const getProgression = () => {
-  const startNumberProgression = getRandomNumber(1, 5);
-  const progression = getRandomNumber(1, 4);
+const getProgression = (startNumber, step, lengthProg) => {
   const arrProgression = [];
-  let result = startNumberProgression + progression;
-  for (let i = 0; i < 10; i += 1) {
-    result += progression;
-    arrProgression.push(result);
+  for (let i = 0; i < lengthProg; i += 1) {
+    arrProgression.push(startNumber + (i * step));
   }
   return arrProgression;
 };
@@ -16,16 +12,14 @@ const getProgression = () => {
 const task = 'What number is missing in the progression?';
 
 const getGameResults = () => {
-  const gameResults = [];
-  for (let i = 0; i < 3; i += 1) {
-    const progression = getProgression();
-    const randomIndex = Math.floor(Math.random() * (progression.length - 1));
-    const randomNumber = progression[randomIndex];
-    progression[randomIndex] = '..';
-    const question = `Question: ${progression.join(' ')}`;
-    const trueAnswer = randomNumber;
-    gameResults.push([question, String(trueAnswer)]);
-  }
-  return gameResults;
+  const startNumber = getRandomNumber(1, 5);
+  const step = getRandomNumber(1, 4);
+  const progression = getProgression(startNumber, step, 10);
+  const randomIndex = getRandomNumber(0, progression.length - 1);
+  const randomNumber = progression[randomIndex];
+  progression[randomIndex] = '..';
+  const question = `Question: ${progression.join(' ')}`;
+  const trueAnswer = randomNumber;
+  return [question, String(trueAnswer)];
 };
-export default () => gameStart(task, getGameResults());
+export default () => gameStart(task, getGameResults);

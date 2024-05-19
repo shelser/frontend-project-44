@@ -1,37 +1,28 @@
 import getRandomNumber from '../getRandomNumber.js';
 import gameStart from '../index.js';
 
-const getRandomSymbol = () => {
-  const arrSymbol = ['+', '+', '-', '-', '*', '*'];
-  const randomIndex = Math.floor(Math.random() * (arrSymbol.length - 1));
-  return arrSymbol[randomIndex];
-};
-
 const getCalculate = (a, b, operator) => {
-  if (operator === '+') {
-    return a + b;
+  switch (operator) {
+    case '+':
+      return a + b;
+    case '-':
+      return a - b;
+    case '*':
+      return a * b;
+    default:
+      throw new Error(`Unknown operator: '${operator}'!`);
   }
-  if (operator === '-') {
-    return a - b;
-  }
-  if (operator === '*') {
-    return a * b;
-  }
-  return NaN;
 };
 
 const task = 'What is the result of the expression?';
 
 const getGameResults = () => {
-  const gameResults = [];
-  for (let i = 0; i < 3; i += 1) {
-    const firstNumber = getRandomNumber(10, 50);
-    const secondNumber = getRandomNumber(1, 10);
-    const symbol = getRandomSymbol();
-    const question = `Question: ${firstNumber} ${symbol} ${secondNumber}`;
-    const trueAnswer = getCalculate(firstNumber, secondNumber, symbol);
-    gameResults.push([question, String(trueAnswer)]);
-  }
-  return gameResults;
+  const arrSymbol = ['+', '-', '*'];
+  const firstNumber = getRandomNumber(10, 50);
+  const secondNumber = getRandomNumber(1, 10);
+  const symbol = arrSymbol[getRandomNumber(0, 2)];
+  const question = `Question: ${firstNumber} ${symbol} ${secondNumber}`;
+  const trueAnswer = getCalculate(firstNumber, secondNumber, symbol);
+  return [question, String(trueAnswer)];
 };
-export default () => gameStart(task, getGameResults());
+export default () => gameStart(task, getGameResults);
